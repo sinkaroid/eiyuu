@@ -1,0 +1,78 @@
+{
+  "name": "eiyuu",
+  "description": "A query completion for Booru imageboards",
+  "funding": "https://github.com/sponsors/sinkaroid",
+  "version": "1.0.6",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "rm -rf build && tsc",
+    "test": "npx ts-node test/fetch.test.ts",
+    "lint": "npx eslint . --ext .ts",
+    "lint:fix": "npx eslint . --fix",
+    "docs": "npx typedoc --entryPointStrategy expand src/ index.ts",
+    "test:dry": "npx ts-node test/eiyuu.test.ts",
+    "test:gelbooru": "npx ts-node test/eiyuu.test.ts --gelbooru",
+    "test:danbooru": "npx ts-node test/eiyuu.test.ts --danbooru",
+    "test:hypnohub": "npx ts-node test/eiyuu.test.ts --hypnohub",
+    "test:konachan": "npx ts-node test/eiyuu.test.ts --konachan",
+    "test:lolibooru": "npx ts-node test/eiyuu.test.ts --lolibooru",
+    "test:rule34": "npx ts-node test/eiyuu.test.ts --rule34",
+    "test:realbooru": "npx ts-node test/eiyuu.test.ts --realbooru",
+    "test:safebooru": "npx ts-node test/eiyuu.test.ts --safebooru",
+    "test:tbib": "npx ts-node test/eiyuu.test.ts --tbib",
+    "test:xbooru": "npx ts-node test/eiyuu.test.ts --xbooru",
+    "test:yandere": "npx ts-node test/eiyuu.test.ts --yandere",
+    "test:mocha": "npx mocha --timeout 15000 -r ts-node/register 'test/mocha.test.ts'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sinkaroid/eiyuu.git"
+  },
+  "keywords": [
+    "booru",
+    "imageboards",
+    "wildcard",
+    "gelbooru",
+    "danbooru",
+    "hypnohub",
+    "konachan",
+    "lolibooru",
+    "rule34",
+    "realbooru",
+    "safebooru",
+    "tbib",
+    "xbooru",
+    "yandere"
+  ],
+  "author": "sinkaroid",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sinkaroid/eiyuu/issues"
+  },
+  "homepage": "https://github.com/sinkaroid/eiyuu#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.11",
+    "phin": "^3.6.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.1",
+    "@types/chai-as-promised": "^7.1.5",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^7.32.0",
+    "mocha": "^10.0.0",
+    "ts-node": "^10.8.1",
+    "typedoc": "^0.23.10",
+    "typedoc-plugin-rename-defaults": "^0.6.4",
+    "typedoc-theme-hierarchy": "^3.0.0",
+    "typescript": "^4.6.4"
+  }
+}
