@@ -2,7 +2,7 @@
   "name": "eiyuu",
   "description": "A query completion for Booru imageboards",
   "funding": "https://github.com/sponsors/sinkaroid",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "files": [
