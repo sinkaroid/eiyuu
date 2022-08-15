@@ -1,4 +1,4 @@
-# Eiyuu [![Testing](https://github.com/sinkaroid/eiyuu/workflows/Typedata%20check/badge.svg)](https://github.com/sinkaroid/eiyuu/actions/workflows/mocha.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/cc5309f61f1336368fd2/maintainability)](https://codeclimate.com/github/sinkaroid/eiyuu/maintainability)
+# Eiyuu [![Testing](https://github.com/sinkaroid/eiyuu/workflows/Typedata%20test/badge.svg)](https://github.com/sinkaroid/eiyuu/actions/workflows/mocha.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/cc5309f61f1336368fd2/maintainability)](https://codeclimate.com/github/sinkaroid/eiyuu/maintainability)
 
 <a href="https://github.com/sinkaroid/eiyuu/blob/master/CONTRIBUTING.md">Contributing</a> •
 <a href="https://eiyuu.js.org/">Documentation</a> •
@@ -27,7 +27,7 @@
 
 
 ## The problem
-TLDR; use arbitrary query to consume imageboard API. The whole booru api does not have wildcard endpoint, That mean You cannot using arbitrary query to interact with. Each websites can use direct wildcards with asterisk symbols like `?tags=<SomeQuery>*` But sometime misleading occur and Your query returned no results.  
+TL;DR use arbitrary query to consume imageboard API. The whole booru api does not have wildcard endpoint, That mean You cannot using arbitrary query to interact with. Each websites can use direct wildcards with asterisk symbols like `?tags=<SomeQuery>*` But sometime misleading occur and Your query returned no results.  
 
 ## The solution
 A query completion for Booru imageboards, (JS) imageboard module that uses wildcard for It's query resolver.
