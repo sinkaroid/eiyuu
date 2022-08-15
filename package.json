@@ -13,7 +13,7 @@
     "test": "npx ts-node test/fetch.test.ts",
     "lint": "npx eslint . --ext .ts",
     "lint:fix": "npx eslint . --fix",
-    "docs": "npx typedoc --entryPointStrategy expand src/ index.ts",
+    "docs": "npx typedoc --cname eiyuu.js.org --entryPointStrategy expand src/ index.ts",
     "test:dry": "npx ts-node test/eiyuu.test.ts",
     "test:gelbooru": "npx ts-node test/eiyuu.test.ts --gelbooru",
     "test:danbooru": "npx ts-node test/eiyuu.test.ts --danbooru",
