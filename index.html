@@ -1,0 +1,267 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>eiyuu</title><meta name="description" content="Documentation for eiyuu"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script><link rel="stylesheet" href="assets/custom.css"/></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">eiyuu</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>eiyuu</h2></div>
+<div class="tsd-panel tsd-typography">
+<a href="#eiyuu--" id="eiyuu--" style="color: inherit; text-decoration: none;">
+  <h1>Eiyuu <a href="https://github.com/sinkaroid/eiyuu/actions/workflows/mocha.yml"><img src="https://github.com/sinkaroid/eiyuu/workflows/Typedata%20check/badge.svg" alt="Testing"></a> <a href="https://codeclimate.com/github/sinkaroid/eiyuu/maintainability"><img src="https://api.codeclimate.com/v1/badges/cc5309f61f1336368fd2/maintainability" alt="Maintainability"></a></h1>
+</a>
+<p><a href="https://github.com/sinkaroid/eiyuu/blob/master/CONTRIBUTING.md">Contributing</a> •
+<a href="https://eiyuu.js.org/">Documentation</a> •
+<a href="https://github.com/sinkaroid/eiyuu/issues/new/choose">Report Issues</a></p>
+<p><a href="https://www.npmjs.com/package/eiyuu"><img align="right" src="https://cdn.discordapp.com/attachments/952117487166705747/1008503920651407470/eiyuu_.png" width="300"></a></p>
+<ul>
+<li><a href="#">Eiyuu</a><ul>
+<li><a href="#the-problem">The problem</a></li>
+<li><a href="#the-solution">The solution</a></li>
+<li><a href="#features">Features</a><ul>
+<li><a href="#eiyuu-vs-the-competition">Eiyuu vs. the Competition</a></li>
+</ul>
+</li>
+<li><a href="#getting-started">Installation</a><ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+</ul>
+</li>
+<li><a href="#documentation">Documentation</a><ul>
+<li><a href="#quick-example">Quick example</a></li>
+<li><a href="#combine-eiyuu-with-another-libraries">Combine with another libs</a></li>
+<li><a href="#Combine-eiyuu-with-the-Rest">Combine with the Rest</a></li>
+<li><a href="#the-search-returns">The search returns</a></li>
+<li><a href="#testing">Running the tests</a></li>
+</ul>
+</li>
+<li><a href="#webpack">Webpack</a></li>
+<li><a href="#limitations">Limitations</a></li>
+<li><a href="#Pronunciation">Pronunciation</a></li>
+<li><a href="./CLOSING_REMARKS.md">Acknowledgements</a></li>
+<li><a href="#legal">Legal</a></li>
+</ul>
+</li>
+</ul>
+
+<a href="#the-problem" id="the-problem" style="color: inherit; text-decoration: none;">
+  <h2>The problem</h2>
+</a>
+<p>TLDR; use arbitrary query to consume imageboard API. The whole booru api does not have wildcard endpoint, That mean You cannot using arbitrary query to interact with. Each websites can use direct wildcards with asterisk symbols like <code>?tags=&lt;SomeQuery&gt;*</code> But sometime misleading occur and Your query returned no results.  </p>
+
+<a href="#the-solution" id="the-solution" style="color: inherit; text-decoration: none;">
+  <h2>The solution</h2>
+</a>
+<p>A query completion for Booru imageboards, (JS) imageboard module that uses wildcard for It&#39;s query resolver.</p>
+<center>
+<table>
+  <tr>
+    <td align="center"><img src="https://cdn.discordapp.com/attachments/952117487166705747/1008355693255983144/rounded_corners_6.png" width="360px;" alt=""/><br />💻 What browser looks like</td>
+    <td align="center"><img src="https://cdn.discordapp.com/attachments/952117487166705747/1008355692782030868/rounded_corners_7.png" width="360px;" alt=""/><br />🚀 This library also</td>
+
+
+  </tr>
+</table>
+</center><br>
+The completion works like a Search, It's uses wildcard but Pure scraping, and does not hit the API just works like a plugins will immediately resolve the arbitrary query. It's can be used in any JS Third-party libraries.
+
+
+<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+  <h2>Features</h2>
+</a>
+<ul>
+<li>Support 11 different boorus (check <a href="./src/base.ts">base.ts</a>)</li>
+<li>Pure scraping, does not hit the API endpoint</li>
+<li>Documented and tested</li>
+<li>Easy to use, check your intelisense</li>
+</ul>
+
+<a href="#eiyuu-vs-the-competition" id="eiyuu-vs-the-competition" style="color: inherit; text-decoration: none;">
+  <h2>Eiyuu vs. the Competition</h2>
+</a>
+<p>Some tests result against the imageboards</p>
+<table>
+<thead>
+<tr>
+<th>Site</th>
+<th>Status</th>
+<th>Query resolver</th>
+<th>Additions</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Danbooru</code></td>
+<td><a href="https://github.com/sinkaroid/eiyuu/actions/workflows/danbooru.yml"><img src="https://github.com/sinkaroid/eiyuu/workflows/Danbooru%20test/badge.svg" alt=""></a></td>
+<td><code>Yes</code></td>
+<td>Stable</td>
+</tr>
+<tr>
+<td><code>Gelbooru</code></td>
+<td><a href="https://github.com/sinkaroid/eiyuu/actions/workflows/gelbooru.yml"><img src="https://github.com/sinkaroid/eiyuu/workflows/Gelbooru%20test/badge.svg" alt=""></a></td>
+<td><code>Yes</code></td>
+<td>Stable</td>
+</tr>
+<tr>
+<td><code>Hypnohub</code></td>
+<td><a href="https://github.com/sinkaroid/eiyuu/actions/workflows/hypnohub.yml"><img src="https://github.com/sinkaroid/eiyuu/workflows/Hypnohub%20test/badge.svg" alt=""></a></td>
+<td><code>Yes</code></td>
+<td>Stable</td>
+</tr>
+<tr>
+<td><code>Konachan</code></td>
+<td><a href="https://github.com/sinkaroid/eiyuu/actions/workflows/konachan.yml"><img src="https://github.com/sinkaroid/eiyuu/workflows/Konachan%20test/badge.svg" alt=""></a></td>
+<td><code>Yes</code></td>
+<td>Stable</td>
+</tr>
+<tr>
+<td><code>Lolibooru</code></td>
+<td><a href="https://github.com/sinkaroid/eiyuu/actions/workflows/lolibooru.yml"><img src="https://github.com/sinkaroid/eiyuu/workflows/Lolibooru%20test/badge.svg" alt=""></a></td>
+<td><code>Yes</code></td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><code>Rule34</code></td>
+<td><a href="https://github.com/sinkaroid/eiyuu/actions/workflows/rule34.yml"><img src="https://github.com/sinkaroid/eiyuu/workflows/Rule34%20test/badge.svg" alt=""></a></td>
+<td><code>Yes</code></td>
+<td>Captcha Enabled</td>
+</tr>
+<tr>
+<td><code>Realbooru</code></td>
+<td><a href="https://github.com/sinkaroid/eiyuu/actions/workflows/realbooru.yml"><img src="https://github.com/sinkaroid/eiyuu/workflows/Realbooru%20test/badge.svg" alt=""></a></td>
+<td><code>Yes</code></td>
+<td>Stable</td>
+</tr>
+<tr>
+<td><code>Safebooru</code></td>
+<td><a href="https://github.com/sinkaroid/eiyuu/actions/workflows/safebooru.yml"><img src="https://github.com/sinkaroid/eiyuu/workflows/Safebooru%20test/badge.svg" alt=""></a></td>
+<td><code>Yes</code></td>
+<td>Stable</td>
+</tr>
+<tr>
+<td><code>Tbib</code></td>
+<td><a href="https://github.com/sinkaroid/eiyuu/actions/workflows/tbib.yml"><img src="https://github.com/sinkaroid/eiyuu/workflows/Tbib%20test/badge.svg" alt=""></a></td>
+<td><code>Yes</code></td>
+<td>Stable</td>
+</tr>
+<tr>
+<td><code>Xbooru</code></td>
+<td><a href="https://github.com/sinkaroid/eiyuu/actions/workflows/xbooru.yml"><img src="https://github.com/sinkaroid/eiyuu/workflows/Xbooru%20test/badge.svg" alt=""></a></td>
+<td><code>Yes</code></td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><code>Yandere</code></td>
+<td><a href="https://github.com/sinkaroid/eiyuu/actions/workflows/yandere.yml"><img src="https://github.com/sinkaroid/eiyuu/workflows/Yandere%20test/badge.svg" alt=""></a></td>
+<td><code>Yes</code></td>
+<td>Stable</td>
+</tr>
+</tbody></table>
+
+<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+  <h2>Getting Started</h2>
+</a>
+<p><code>npm install eiyuu</code> / <code>yarn add eiyuu</code></p>
+
+<a href="#prerequisites" id="prerequisites" style="color: inherit; text-decoration: none;">
+  <h2>Prerequisites</h2>
+</a>
+<table>
+    <td><b>NOTE:</b> NodeJS 14.x or higher</td>
+</table>
+
+
+<a href="#quick-example" id="quick-example" style="color: inherit; text-decoration: none;">
+  <h2>Quick Example</h2>
+</a>
+<p>Use the arbitrary query for <code>jeanne_d&#39;arc_(fate)</code></p>
+<pre><code class="language-js"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">Eiyuu</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;eiyuu&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">search</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">Eiyuu</span><span class="hl-1">();</span><br/><span class="hl-2">search</span><span class="hl-1">.</span><span class="hl-6">danbooru</span><span class="hl-1">(</span><span class="hl-3">&quot;janne&quot;</span><span class="hl-1">).</span><span class="hl-6">then</span><span class="hl-1">(</span><span class="hl-2">res</span><span class="hl-1"> </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">(</span><span class="hl-2">res</span><span class="hl-1">); </span><span class="hl-7">// Get the res[0] for the best match</span><br/><span class="hl-1">});</span>
+</code></pre>
+<p>CJS: <code>const { Eiyuu } = require(&#39;eiyuu&#39;);</code></p>
+
+<a href="#combine-eiyuu-with-another-libraries" id="combine-eiyuu-with-another-libraries" style="color: inherit; text-decoration: none;">
+  <h2>Combine Eiyuu with another libraries</h2>
+</a>
+<p>Example combine eiyuu with JS Booru package <a href="https://www.npmjs.com/package/booru">@AtoraSuunva/booru</a></p>
+<pre><code class="language-js"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">Booru</span><span class="hl-1"> = </span><span class="hl-6">require</span><span class="hl-1">(</span><span class="hl-3">&#39;booru&#39;</span><span class="hl-1">);</span><br/><span class="hl-4">const</span><span class="hl-1"> { </span><span class="hl-5">Eiyuu</span><span class="hl-1"> } = </span><span class="hl-6">require</span><span class="hl-1">(</span><span class="hl-3">&#39;eiyuu&#39;</span><span class="hl-1">);</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">resolve</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">Eiyuu</span><span class="hl-1">();</span><br/><br/><span class="hl-4">async</span><span class="hl-1"> </span><span class="hl-4">function</span><span class="hl-1"> </span><span class="hl-6">Danbooru</span><span class="hl-1">() {</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">query</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">resolve</span><span class="hl-1">.</span><span class="hl-6">danbooru</span><span class="hl-1">(</span><span class="hl-3">&quot;jeanne&quot;</span><span class="hl-1">); </span><span class="hl-7">// arbitrary request</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">dan</span><span class="hl-1"> = </span><span class="hl-2">Booru</span><span class="hl-1">.</span><span class="hl-6">forSite</span><span class="hl-1">(</span><span class="hl-3">&#39;danbooru&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-2">dan</span><span class="hl-1">.</span><span class="hl-6">search</span><span class="hl-1">(</span><span class="hl-2">query</span><span class="hl-1">[</span><span class="hl-8">0</span><span class="hl-1">], { </span><span class="hl-2">limit:</span><span class="hl-1"> </span><span class="hl-8">10</span><span class="hl-1"> }).</span><span class="hl-6">then</span><span class="hl-1">(</span><span class="hl-2">posts</span><span class="hl-1"> </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">        </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">(</span><span class="hl-2">posts</span><span class="hl-1">);</span><br/><span class="hl-1">    })</span><br/><span class="hl-1">}</span><br/><br/><span class="hl-6">Danbooru</span><span class="hl-1">();</span>
+</code></pre>
+
+<a href="#combine-eiyuu-with-the-rest" id="combine-eiyuu-with-the-rest" style="color: inherit; text-decoration: none;">
+  <h2>Combine Eiyuu with the Rest</h2>
+</a>
+<p>Example use this module with direct request to the api</p>
+<pre><code class="language-js"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">axios</span><span class="hl-1"> = </span><span class="hl-6">require</span><span class="hl-1">(</span><span class="hl-3">&quot;axios&quot;</span><span class="hl-1">);</span><br/><span class="hl-4">const</span><span class="hl-1"> { </span><span class="hl-5">Eiyuu</span><span class="hl-1"> } = </span><span class="hl-6">require</span><span class="hl-1">(</span><span class="hl-3">&#39;eiyuu&#39;</span><span class="hl-1">);</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">resolve</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">Eiyuu</span><span class="hl-1">();</span><br/><br/><span class="hl-4">async</span><span class="hl-1"> </span><span class="hl-4">function</span><span class="hl-1"> </span><span class="hl-6">Danbooru</span><span class="hl-1">() {</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">query</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">resolve</span><span class="hl-1">.</span><span class="hl-6">danbooru</span><span class="hl-1">(</span><span class="hl-3">&quot;jeanne&quot;</span><span class="hl-1">); </span><span class="hl-7">// arbitrary request</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">res</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">axios</span><span class="hl-1">.</span><span class="hl-6">get</span><span class="hl-1">(</span><span class="hl-3">`https://danbooru.donmai.us/posts.json?limit=10&amp;tags=</span><span class="hl-4">${</span><span class="hl-2">query</span><span class="hl-9">[</span><span class="hl-8">0</span><span class="hl-9">]</span><span class="hl-4">}</span><span class="hl-3">`</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">(</span><span class="hl-2">res</span><span class="hl-1">.</span><span class="hl-2">data</span><span class="hl-1">);</span><br/><span class="hl-1">}</span><br/><br/><span class="hl-6">Danbooru</span><span class="hl-1">();</span>
+</code></pre>
+
+<a href="#the-search-returns" id="the-search-returns" style="color: inherit; text-decoration: none;">
+  <h2>The search returns</h2>
+</a>
+<p>The query resolved returned as array</p>
+<pre><code class="language-js"><span class="hl-1">[</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_alter_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_alter_(avenger)_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_(ruler)_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_alter_(swimsuit_berserker)_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_alter_santa_lily_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_(swimsuit_archer)_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_alter_(ver._shinjuku_1999)_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_alter_(avenger)_(third_ascension)_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_(third_ascension)_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_(swimsuit_archer)_(first_ascension)_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_(granblue_fantasy)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_(swimsuit_archer)_(second_ascension)_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_(girl_from_orleans)_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_alter_(avenger)_(first_ascension)_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_(summer)_(granblue_fantasy)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&#39;jeanne_(bayonetta)&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_(azur_lane)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_(white_cruising)_(fate)&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-3">&quot;jeanne_d&#39;arc_alter_santa_lily_(fate)_(cosplay)&quot;</span><br/><span class="hl-1">]</span>
+</code></pre>
+
+<a href="#testing" id="testing" style="color: inherit; text-decoration: none;">
+  <h2>Testing</h2>
+</a>
+<p>Check workflows and the whole build script on <a href="./package.json">package.json</a></p>
+
+<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+  <h2>Documentation</h2>
+</a>
+<p>The documentation can be found <a href="https://sinkaroid.github.io/eiyuu">https://sinkaroid.github.io/eiyuu</a></p>
+
+<a href="#webpack" id="webpack" style="color: inherit; text-decoration: none;">
+  <h2>Webpack</h2>
+</a>
+<p>TBA</p>
+
+<a href="#limitations" id="limitations" style="color: inherit; text-decoration: none;">
+  <h2>Limitations</h2>
+</a>
+<p>Depends on your request, Some sites has CF or captcha enabled. Rule34 for example, If they marked your IP for being spam Eiyuu&#39;s scraper will not work. Make sure your stuff run on good environments.</p>
+
+<a href="#pronunciation" id="pronunciation" style="color: inherit; text-decoration: none;">
+  <h2>Pronunciation</h2>
+</a>
+<p><a href="https://www.localeplanet.com/java/ja-JP/index.html"><code>ja_JP</code></a> • <strong>/ei-yū/</strong> Eiyuu / eiyū / 英雄 — heroine; hero; leads to the spirit heroes probably; <em>(?)</em></p>
+
+<a href="#legal" id="legal" style="color: inherit; text-decoration: none;">
+  <h2>Legal</h2>
+</a>
+<p>This tool can be freely copied, modified, altered, distributed without any attribution whatsoever. However, if you feel
+like this tool deserves an attribution, mention it. It won&#39;t hurt anybody.</p>
+<blockquote>
+<p>Licence: WTF.</p>
+</blockquote>
+</div></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected"><a href="modules.html">eiyuu</a>
+<ul>
+<li class="tsd-kind-module"><a href="modules/base.html">base</a></li>
+<li class="tsd-kind-module"><a href="modules/class_Eiyuu.html">class/<wbr/>Eiyuu</a></li>
+<li class="tsd-kind-module"><a href="modules/index.html">index</a></li>
+<li class="tsd-kind-module"><a href="modules/interfaces.html">interfaces</a></li>
+<li class="tsd-kind-module"><a href="modules/modifier.html">modifier</a></li></ul></li></ul></div></details></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="assets/main.js"></script><script src="assets/custom.js"></script></body></html>
