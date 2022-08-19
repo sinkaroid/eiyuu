@@ -17,6 +17,7 @@
     - [Quick example](#quick-example)
     - [Combine with another libs](#combine-eiyuu-with-another-libraries)
     - [Combine with the Rest](#Combine-eiyuu-with-the-Rest)
+    - [Use as error handler](#Use-eiyuu-as-error-handler)
     - [The search returns](#the-search-returns)
     - [Running the tests](#testing)
   - [Webpack](#webpack)
@@ -30,7 +31,7 @@
 TL;DR use arbitrary query to consume imageboard API. The whole booru api does not have wildcard endpoint, That mean You cannot using arbitrary query to interact with. Each websites can use direct wildcards with asterisk symbols like `?tags=<SomeQuery>*` But sometime misleading occur and Your query returned no results.  
 
 ## The solution
-A query completion for Booru imageboards, (JS) imageboard module that uses wildcard for It's query resolver.
+A query completion (JS/TS) Booru imageboards module that uses wildcard for It's query resolver.
 <center>
 <table>
   <tr>
@@ -51,7 +52,7 @@ The completion works like a Search, It's uses wildcard but Pure scraping, and do
 - Easy to use, check your intelisense
 
 ## Eiyuu vs. the Competition
-Some tests result against the imageboards
+Some tests result with the imageboards
 
 | Site            | Status                                                                                                                                                                            | Query resolver | Additions |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | --- |
@@ -85,7 +86,13 @@ search.danbooru("janne").then(res => {
     console.log(res); // Get the res[0] for the best match
 });
 ```
-CJS: `const { Eiyuu } = require('eiyuu');`
+commonjs: `const { Eiyuu } = require('eiyuu');`
+
+You can passing optional useragent and follow redirects options.  
+`constructor(useragent?: string, followRedirects?: boolean)`
+```js
+const search = new Eiyuu('eiyuu/version (eiyuu.js.org);', false);
+```
 
 ## Combine Eiyuu with another libraries
 Example combine eiyuu with JS Booru package [@AtoraSuunva/booru](https://www.npmjs.com/package/booru)
@@ -121,6 +128,30 @@ async function Danbooru() {
 Danbooru();
 ```
 
+## Use Eiyuu as error handler
+Instead hanging when no results are found, You can tells the proper queries with `parseString()`
+```js
+const axios = require("axios"); // or any http client
+const { Eiyuu, parseString } = require('eiyuu'); // import the wildcard
+const resolve = new Eiyuu(); // default constructor
+const q = "jeanne"; // assuming this is the query
+
+async function Danbooru() {
+    const res = await axios.get(`https://danbooru.donmai.us/posts.json?limit=10&tags=${q}`);
+
+    // throw when error and tells the proper queries
+    if (!res.data || res.data.length === 0) return resolve.danbooru(q).then(r => {
+        console.log("No results found. Did you mean:", parseString(r));
+    })
+
+    // return when found
+    console.log(res.data);
+
+}
+
+Danbooru();
+```
+
 ## The search returns
 The query resolved returned as array
 
@@ -132,21 +163,8 @@ The query resolved returned as array
   "jeanne_d'arc_(ruler)_(fate)",
   "jeanne_d'arc_alter_(swimsuit_berserker)_(fate)",
   "jeanne_d'arc_alter_santa_lily_(fate)",
-  "jeanne_d'arc_(swimsuit_archer)_(fate)",
-  "jeanne_d'arc_alter_(ver._shinjuku_1999)_(fate)",
-  "jeanne_d'arc_alter_(avenger)_(third_ascension)_(fate)",
-  "jeanne_d'arc_(third_ascension)_(fate)",
-  "jeanne_d'arc_(swimsuit_archer)_(first_ascension)_(fate)",
-  "jeanne_d'arc_(granblue_fantasy)",
-  "jeanne_d'arc_(swimsuit_archer)_(second_ascension)_(fate)",
-  "jeanne_d'arc_(girl_from_orleans)_(fate)",
-  "jeanne_d'arc_alter_(avenger)_(first_ascension)_(fate)",
-  "jeanne_d'arc_(summer)_(granblue_fantasy)",
-  'jeanne_(bayonetta)',
-  "jeanne_d'arc_(azur_lane)",
-  "jeanne_d'arc_(white_cruising)_(fate)",
-  "jeanne_d'arc_alter_santa_lily_(fate)_(cosplay)"
-]
+  "jeanne_d'arc_(swimsuit_archer)_(fate)"
+] // and so on..
 ```
 
 ## Testing
@@ -163,7 +181,7 @@ Depends on your request, Some sites has CF or captcha enabled. Rule34 for exampl
 
 
 ## Pronunciation
-[`ja_JP`](https://www.localeplanet.com/java/ja-JP/index.html) • **/ei-yū/** Eiyuu / eiyū / 英雄 — heroine; hero; leads to the spirit heroes probably; _(?)_
+[`ja_JP`](https://www.localeplanet.com/java/ja-JP/index.html) • **/ei-yū/** Eiyuu / eiyū / 英雄 — hero; heroine; leads to the spirit hero probably; _(?)_
 
 
 ## Legal
