@@ -1,6 +1,6 @@
 import { load } from "cheerio";
-import p from "phin";
-import { htmlDecode } from "../modifier";
+import { request, htmlDecode } from "../modifier";
+import defaults from "../defaults";
 import c from "../base";
 
 export default class Eiyuu {
@@ -16,10 +16,21 @@ export default class Eiyuu {
   private xbooruURL: string;
   private yandereURL: string;
 
-  private gelbooruPattern: string;
+  private searchElements: string;
+  private useragent: string
+  private searchSortings: string;
+  private followRedirects: boolean;
 
-  public constructor() {
-    this.gelbooruPattern = "table.highlightable";
+  /**
+   * Eiyuu
+   * @param useragent custom useragent
+   * @param followRedirects enable HTTP redirect following
+  */
+  public constructor(useragent?: string, followRedirects?: boolean) {
+    this.useragent = useragent || defaults.useragent;
+    this.followRedirects = followRedirects || defaults.followRedirects;
+    this.searchElements = "table.highlightable";
+    this.searchSortings = "*&sort=desc&order_by=index_count";
 
     this.gelbooruURL = c.GELBOORU;
     this.danbooruURL = c.DANBOORU;
@@ -32,31 +43,9 @@ export default class Eiyuu {
     this.tbibURL = c.TBIB;
     this.xbooruURL = c.XBOORU;
     this.yandereURL = c.YANDERE;
+
   }
 
-  /**
-   * Search arbitrary query on gelbooru.
-   * @param query The query to search.
-   * @example
-   * ```js
-   * search.gelbooru("amber").then(res => { console.log(res); });
-   * ```
-   * https://gelbooru.com/index.php?page=tags&s=list&tags=
-   */
-  public async gelbooru(query: string): Promise<string[]> {
-    try {
-      const res = await p({ url: this.gelbooruURL + query + "*&sort=desc&order_by=index_count" });
-      const $ = load(res.body);
-
-      const gets = $(this.gelbooruPattern).find("a").map((i, el) => $(el).attr("href")).get();
-      const tags = gets.map(el => el.split("&tags=")[1]).filter(el => el !== undefined);
-      const replaced = tags.map(el => htmlDecode(el));
-      return replaced;
-    } catch (e) {
-      const error = e as string;
-      throw new Error(error);
-    }
-  }
 
   /**
    * Search arbitrary query on danbooru.
@@ -69,7 +58,10 @@ export default class Eiyuu {
    */
   public async danbooru(query: string): Promise<string[]> {
     try {
-      const res = await p({ url: this.danbooruURL + query + "%2A&search%5Border%5D=count" });
+      const res = await request(
+        this.danbooruURL, query, "%2A&search%5Border%5D=count",
+        this.useragent, this.followRedirects);
+        
       const $ = load(res.body);
 
       const gets = $("a").map((i, el) => $(el).attr("href")).get();
@@ -85,6 +77,33 @@ export default class Eiyuu {
   }
 
   /**
+   * Search arbitrary query on gelbooru.
+   * @param query The query to search.
+   * @example
+   * ```js
+   * search.gelbooru("amber").then(res => { console.log(res); });
+   * ```
+   * https://gelbooru.com/index.php?page=tags&s=list&tags=
+   */
+  public async gelbooru(query: string): Promise<string[]> {
+    try {
+      const res = await request(
+        this.gelbooruURL, query, this.searchSortings,
+        this.useragent, this.followRedirects);
+
+      const $ = load(res.body);
+
+      const gets = $(this.searchElements).find("a").map((i, el) => $(el).attr("href")).get();
+      const tags = gets.map(el => el.split("&tags=")[1]).filter(el => el !== undefined);
+      const replaced = tags.map(el => htmlDecode(el));
+      return replaced;
+    } catch (e) {
+      const error = e as string;
+      throw new Error(error);
+    }
+  }
+
+  /**
    * Search arbitrary query on hypnohub.
    * @param query The query to search.
    * @example
@@ -95,10 +114,13 @@ export default class Eiyuu {
    */
   public async hypnohub(query: string): Promise<string[]> {
     try {
-      const res = await p({ url: this.hypnohubURL + query + "*&sort=desc&order_by=updated" });
+      const res = await request(
+        this.hypnohubURL, query, this.searchSortings,
+        this.useragent, this.followRedirects);
+
       const $ = load(res.body);
 
-      const gets = $(this.gelbooruPattern).find("a").map((i, el) => $(el).attr("href")).get();
+      const gets = $(this.searchElements).find("a").map((i, el) => $(el).attr("href")).get();
       const tags = gets.map(el => el.split("&tags=")[1]).filter(el => el !== undefined);
       const replaced = tags.map(el => htmlDecode(el));
       return replaced;
@@ -120,7 +142,10 @@ export default class Eiyuu {
    */
   public async konachan(query: string): Promise<string[]> {
     try {
-      const res = await p({ url: this.konachanURL + query + "&type=&order=count" });
+      const res = await request(
+        this.konachanURL, query, "&type=&order=count",
+        this.useragent, this.followRedirects);
+
       const $ = load(res.body);
 
       const gets = $("tbody").find("a").map((i, el) => $(el).attr("href")).get();
@@ -145,7 +170,10 @@ export default class Eiyuu {
    */
   public async lolibooru(query: string): Promise<string[]> {
     try {
-      const res = await p({ url: this.lolibooruURL + query + "&type=&order=count" });
+      const res = await request(
+        this.lolibooruURL, query, "&type=&order=count",
+        this.useragent, this.followRedirects);
+
       const $ = load(res.body);
 
       const gets = $("tbody").find("a").map((i, el) => $(el).attr("href")).get();
@@ -170,10 +198,13 @@ export default class Eiyuu {
    */
   public async rule34(query: string): Promise<string[]> {
     try {
-      const res = await p({ url: this.rule34URL + query + "*&sort=desc&order_by=updated" });
+      const res = await request(
+        this.rule34URL, query, this.searchSortings,
+        this.useragent, this.followRedirects);
+
       const $ = load(res.body);
 
-      const gets = $(this.gelbooruPattern).find("a").map((i, el) => $(el).attr("href")).get();
+      const gets = $(this.searchElements).find("a").map((i, el) => $(el).attr("href")).get();
       const tags = gets.map(el => el.split("&tags=")[1]).filter(el => el !== undefined);
       const replaced = tags.map(el => htmlDecode(el));
       return replaced;
@@ -194,10 +225,13 @@ export default class Eiyuu {
    */
   public async realbooru(query: string): Promise<string[]> {
     try {
-      const res = await p({ url: this.realbooruURL + query + "*&sort=desc&order_by=updated" });
+      const res = await request(
+        this.realbooruURL, query, this.searchSortings,
+        this.useragent, this.followRedirects);
+
       const $ = load(res.body);
 
-      const gets = $(this.gelbooruPattern).find("a").map((i, el) => $(el).attr("href")).get();
+      const gets = $(this.searchElements).find("a").map((i, el) => $(el).attr("href")).get();
       const tags = gets.map(el => el.split("&tags=")[1]).filter(el => el !== undefined);
       const replaced = tags.map(el => htmlDecode(el));
       return replaced;
@@ -218,10 +252,13 @@ export default class Eiyuu {
    */
   public async safebooru(query: string): Promise<string[]> {
     try {
-      const res = await p({ url: this.safebooruURL + query + "*&sort=desc&order_by=updated" });
+      const res = await request(
+        this.safebooruURL, query, this.searchSortings,
+        this.useragent, this.followRedirects);
+
       const $ = load(res.body);
 
-      const gets = $(this.gelbooruPattern).find("a").map((i, el) => $(el).attr("href")).get();
+      const gets = $(this.searchElements).find("a").map((i, el) => $(el).attr("href")).get();
       const tags = gets.map(el => el.split("&tags=")[1]).filter(el => el !== undefined);
       const replaced = tags.map(el => htmlDecode(el));
       return replaced;
@@ -242,10 +279,13 @@ export default class Eiyuu {
    */
   public async tbib(query: string): Promise<string[]> {
     try {
-      const res = await p({ url: this.tbibURL + query + "*&sort=desc&order_by=index_count" });
+      const res = await request(
+        this.tbibURL, query, this.searchSortings,
+        this.useragent, this.followRedirects);
+
       const $ = load(res.body);
 
-      const gets = $(this.gelbooruPattern).find("a").map((i, el) => $(el).attr("href")).get();
+      const gets = $(this.searchElements).find("a").map((i, el) => $(el).attr("href")).get();
       const tags = gets.map(el => el.split("&tags=")[1]).filter(el => el !== undefined);
       const replaced = tags.map(el => htmlDecode(el));
       return replaced;
@@ -266,10 +306,13 @@ export default class Eiyuu {
    */
   public async xbooru(query: string): Promise<string[]> {
     try {
-      const res = await p({ url: this.xbooruURL + query + "*&sort=desc&order_by=index_count" });
+      const res = await request(
+        this.xbooruURL, query, this.searchSortings,
+        this.useragent, this.followRedirects);
+
       const $ = load(res.body);
 
-      const gets = $(this.gelbooruPattern).find("a").map((i, el) => $(el).attr("href")).get();
+      const gets = $(this.searchElements).find("a").map((i, el) => $(el).attr("href")).get();
       const tags = gets.map(el => el.split("&tags=")[1]).filter(el => el !== undefined);
       const replaced = tags.map(el => htmlDecode(el));
       return replaced;
@@ -290,7 +333,10 @@ export default class Eiyuu {
    */
   public async yandere(query: string): Promise<string[]> {
     try {
-      const res = await p({ url: this.yandereURL + query + "&type=&order=count" });
+      const res = await request(
+        this.yandereURL, query, "&type=&order=count",
+        this.useragent, this.followRedirects);
+
       const $ = load(res.body);
 
       const gets = $("tbody").find("a").map((i, el) => $(el).attr("href")).get();
