@@ -59,7 +59,7 @@ export default class Eiyuu {
   public async danbooru(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.danbooruURL, query, "%2A&search%5Border%5D=count",
+        this.danbooruURL, `*${query}`, "*%2A&search%5Border%5D=count",
         this.useragent, this.followRedirects);
         
       const $ = load(res.body);
@@ -88,7 +88,7 @@ export default class Eiyuu {
   public async gelbooru(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.gelbooruURL, query, this.searchSortings,
+        this.gelbooruURL, `*${query}`, this.searchSortings,
         this.useragent, this.followRedirects);
 
       const $ = load(res.body);
@@ -115,7 +115,7 @@ export default class Eiyuu {
   public async hypnohub(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.hypnohubURL, query, this.searchSortings,
+        this.hypnohubURL, `*${query}`, this.searchSortings,
         this.useragent, this.followRedirects);
 
       const $ = load(res.body);
@@ -143,7 +143,7 @@ export default class Eiyuu {
   public async konachan(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.konachanURL, query, "&type=&order=count",
+        this.konachanURL, `*${query}`, "&type=&order=count",
         this.useragent, this.followRedirects);
 
       const $ = load(res.body);
@@ -171,7 +171,7 @@ export default class Eiyuu {
   public async lolibooru(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.lolibooruURL, query, "&type=&order=count",
+        this.lolibooruURL, `*${query}`, "*&type=&order=count",
         this.useragent, this.followRedirects);
 
       const $ = load(res.body);
@@ -199,7 +199,7 @@ export default class Eiyuu {
   public async rule34(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.rule34URL, query, this.searchSortings,
+        this.rule34URL, `*${query}`, this.searchSortings,
         this.useragent, this.followRedirects);
 
       const $ = load(res.body);
@@ -226,7 +226,7 @@ export default class Eiyuu {
   public async realbooru(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.realbooruURL, query, this.searchSortings,
+        this.realbooruURL, `*${query}`, this.searchSortings,
         this.useragent, this.followRedirects);
 
       const $ = load(res.body);
@@ -253,7 +253,7 @@ export default class Eiyuu {
   public async safebooru(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.safebooruURL, query, this.searchSortings,
+        this.safebooruURL, `*${query}`, this.searchSortings,
         this.useragent, this.followRedirects);
 
       const $ = load(res.body);
@@ -280,7 +280,7 @@ export default class Eiyuu {
   public async tbib(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.tbibURL, query, this.searchSortings,
+        this.tbibURL, `*${query}`, this.searchSortings,
         this.useragent, this.followRedirects);
 
       const $ = load(res.body);
@@ -307,7 +307,7 @@ export default class Eiyuu {
   public async xbooru(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.xbooruURL, query, this.searchSortings,
+        this.xbooruURL, `*${query}`, this.searchSortings,
         this.useragent, this.followRedirects);
 
       const $ = load(res.body);
@@ -334,7 +334,7 @@ export default class Eiyuu {
   public async yandere(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.yandereURL, query, "&type=&order=count",
+        this.yandereURL, `*${query}`, "*&type=&order=count",
         this.useragent, this.followRedirects);
 
       const $ = load(res.body);
