@@ -28,10 +28,10 @@
 
 
 ## The problem
-TL;DR use arbitrary query to consume imageboard API. The whole booru api does not have wildcard endpoint, That mean You cannot using arbitrary query to interact with. Each websites can use direct wildcards with asterisk symbols like `?tags=<SomeQuery>*` But sometime misleading occur and Your query returned no results.  
+TL;DR use arbitrary query to consume imageboard API, each websites could using direct wildcards with asterisk symbols like `?tags=<SomeQuery>*`. The whole booru api does not have wildcard endpoint, that mean You cannot using arbitrary query to interact with. This library bringing the wildcard usage on JS/TS environment. 
 
 ## The solution
-A query completion (JS/TS) Booru imageboards module that uses wildcard for It's query resolver.
+A query completion Booru imageboards module that uses wildcard for It's query resolver.
 <center>
 <table>
   <tr>
