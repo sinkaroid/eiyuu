@@ -19,6 +19,7 @@ export default class Eiyuu {
   private searchElements: string;
   private useragent: string
   private searchSortings: string;
+  private searchSortingsMoebooruBased: string;
   private followRedirects: boolean;
 
   /**
@@ -31,6 +32,7 @@ export default class Eiyuu {
     this.followRedirects = followRedirects || defaults.followRedirects;
     this.searchElements = "table.highlightable";
     this.searchSortings = "*&sort=desc&order_by=index_count";
+    this.searchSortingsMoebooruBased = "*&type=&order=count";
 
     this.gelbooruURL = c.GELBOORU;
     this.danbooruURL = c.DANBOORU;
@@ -143,7 +145,7 @@ export default class Eiyuu {
   public async konachan(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.konachanURL, `*${query}`, "&type=&order=count",
+        this.konachanURL, `*${query}`, this.searchSortingsMoebooruBased,
         this.useragent, this.followRedirects);
 
       const $ = load(res.body);
@@ -171,7 +173,7 @@ export default class Eiyuu {
   public async lolibooru(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.lolibooruURL, `*${query}`, "*&type=&order=count",
+        this.lolibooruURL, `*${query}`, this.searchSortingsMoebooruBased,
         this.useragent, this.followRedirects);
 
       const $ = load(res.body);
@@ -334,7 +336,7 @@ export default class Eiyuu {
   public async yandere(query: string): Promise<string[]> {
     try {
       const res = await request(
-        this.yandereURL, `*${query}`, "*&type=&order=count",
+        this.yandereURL, `*${query}`, this.searchSortingsMoebooruBased,
         this.useragent, this.followRedirects);
 
       const $ = load(res.body);
