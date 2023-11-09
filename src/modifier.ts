@@ -1,4 +1,5 @@
-import p from "phin";
+import p from "agent-phin";
+import { HttpsProxyAgent } from "https-proxy-agent";
 
 /**
  * Scrape request
@@ -10,13 +11,14 @@ import p from "phin";
  * @return {Promise<p.IResponse>} Phin response
  */
 export async function request(url: string, query: string, sort: string,
-  useragent: string, redirect: boolean): Promise<p.IResponse> {
+  useragent: string, redirect: boolean, agent?: HttpsProxyAgent<string>): Promise<p.IResponse> {
   const res = await p({
     url: url + query + sort,
     "headers": {
       "User-Agent": useragent
     },
-    followRedirects: redirect
+    followRedirects: redirect,
+    ...(agent ? { agent } : {}),
   });
   return res;
 }

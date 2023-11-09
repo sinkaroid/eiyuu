@@ -1,4 +1,5 @@
 import { load } from "cheerio";
+import { HttpsProxyAgent } from "https-proxy-agent";
 import { request, htmlDecode } from "../modifier";
 import defaults from "../defaults";
 import c from "../base";
@@ -21,15 +22,18 @@ export default class Eiyuu {
   private searchSortings: string;
   private searchSortingsMoebooruBased: string;
   private followRedirects: boolean;
+  private httpsProxyAgent?: HttpsProxyAgent<string>;
 
   /**
    * Eiyuu
    * @param useragent custom useragent
    * @param followRedirects enable HTTP redirect following
+   * @param httpsProxyAgent custom https proxy agent
   */
-  public constructor(useragent?: string, followRedirects?: boolean) {
+  public constructor(useragent?: string, followRedirects?: boolean, httpsProxyAgent?: HttpsProxyAgent<string>) {
     this.useragent = useragent || defaults.useragent;
     this.followRedirects = followRedirects || defaults.followRedirects;
+    this.httpsProxyAgent = httpsProxyAgent;
     this.searchElements = "table.highlightable";
     this.searchSortings = "*&sort=desc&order_by=index_count";
     this.searchSortingsMoebooruBased = "*&type=&order=count";
@@ -62,7 +66,7 @@ export default class Eiyuu {
     try {
       const res = await request(
         this.danbooruURL, `*${query}`, "*%2A&search%5Border%5D=count",
-        this.useragent, this.followRedirects);
+        this.useragent, this.followRedirects, this.httpsProxyAgent);
         
       const $ = load(res.body);
 
@@ -91,7 +95,7 @@ export default class Eiyuu {
     try {
       const res = await request(
         this.gelbooruURL, `*${query}`, this.searchSortings,
-        this.useragent, this.followRedirects);
+        this.useragent, this.followRedirects, this.httpsProxyAgent);
 
       const $ = load(res.body);
 
@@ -118,7 +122,7 @@ export default class Eiyuu {
     try {
       const res = await request(
         this.hypnohubURL, `*${query}`, this.searchSortings,
-        this.useragent, this.followRedirects);
+        this.useragent, this.followRedirects, this.httpsProxyAgent);
 
       const $ = load(res.body);
 
@@ -146,7 +150,7 @@ export default class Eiyuu {
     try {
       const res = await request(
         this.konachanURL, `*${query}`, this.searchSortingsMoebooruBased,
-        this.useragent, this.followRedirects);
+        this.useragent, this.followRedirects, this.httpsProxyAgent);
 
       const $ = load(res.body);
 
@@ -174,7 +178,7 @@ export default class Eiyuu {
     try {
       const res = await request(
         this.lolibooruURL, `*${query}`, this.searchSortingsMoebooruBased,
-        this.useragent, this.followRedirects);
+        this.useragent, this.followRedirects, this.httpsProxyAgent);
 
       const $ = load(res.body);
 
@@ -202,7 +206,7 @@ export default class Eiyuu {
     try {
       const res = await request(
         this.rule34URL, `*${query}`, this.searchSortings,
-        this.useragent, this.followRedirects);
+        this.useragent, this.followRedirects, this.httpsProxyAgent);
 
       const $ = load(res.body);
 
@@ -229,7 +233,7 @@ export default class Eiyuu {
     try {
       const res = await request(
         this.realbooruURL, `*${query}`, this.searchSortings,
-        this.useragent, this.followRedirects);
+        this.useragent, this.followRedirects, this.httpsProxyAgent);
 
       const $ = load(res.body);
 
@@ -256,7 +260,7 @@ export default class Eiyuu {
     try {
       const res = await request(
         this.safebooruURL, `*${query}`, this.searchSortings,
-        this.useragent, this.followRedirects);
+        this.useragent, this.followRedirects, this.httpsProxyAgent);
 
       const $ = load(res.body);
 
@@ -283,7 +287,7 @@ export default class Eiyuu {
     try {
       const res = await request(
         this.tbibURL, `*${query}`, this.searchSortings,
-        this.useragent, this.followRedirects);
+        this.useragent, this.followRedirects, this.httpsProxyAgent);
 
       const $ = load(res.body);
 
@@ -310,7 +314,7 @@ export default class Eiyuu {
     try {
       const res = await request(
         this.xbooruURL, `*${query}`, this.searchSortings,
-        this.useragent, this.followRedirects);
+        this.useragent, this.followRedirects, this.httpsProxyAgent);
 
       const $ = load(res.body);
 
@@ -337,7 +341,7 @@ export default class Eiyuu {
     try {
       const res = await request(
         this.yandereURL, `*${query}`, this.searchSortingsMoebooruBased,
-        this.useragent, this.followRedirects);
+        this.useragent, this.followRedirects, this.httpsProxyAgent);
 
       const $ = load(res.body);
 

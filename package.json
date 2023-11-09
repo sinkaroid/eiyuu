@@ -55,7 +55,9 @@
   },
   "homepage": "https://eiyuu.js.org",
   "dependencies": {
+    "agent-phin": "^1.0.4",
     "cheerio": "^1.0.0-rc.12",
+    "https-proxy-agent": "^7.0.2",
     "phin": "^3.7.0"
   },
   "devDependencies": {
